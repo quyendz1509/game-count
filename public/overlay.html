@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Overlay</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            font-size: 50px;
+            background: transparent;
+        }
+        #score {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="score">0/10</div>
+
+    <script>
+        const socket = io("http://localhost:3000");
+
+        socket.on("updateScore", (data) => {
+            document.getElementById("score").innerText = `${data.score}/${data.goal}`;
+        });
+    </script>
+</body>
+</html>
