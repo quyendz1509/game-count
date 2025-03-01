@@ -25,10 +25,10 @@
     <div id="score">0/10</div>
 
     <script>
-        const socket = io("http://localhost:3000");
+        const socket = io("https://game-count-production.up.railway.app/");
 
         socket.on("updateScore", (data) => {
-            document.getElementById("score").innerText = `${data.score}/${data.goal}`;
+            document.getElementById("score").innerText = `WIN: ${data.score}/${data.goal}`;
         });
     </script>
 </body>
