@@ -31,23 +31,24 @@ app.get("/", (req, res) => {
 // Thiết lập goal mới qua URL /default=10
 app.get("/default=:goal", (req, res) => {
     goal = parseInt(req.params.goal) || 10;
-   
     io.emit("updateScore", { score, goal });
     res.json({ success: true, goal });
 });
 
-// Cộng bàn thắng
+// Cộng bàn thắng với số tùy chọn
 app.get("/cong", (req, res) => {
-    score++;
+    const value = parseInt(req.query.value) || 1; // Mặc định là 1 nếu không có value
+    score += value;
     io.emit("updateScore", { score, goal });
-    res.json({ success: true, score, goal });
+    res.json({ success: true, score, goal, added: value });
 });
 
-// Trừ bàn thắng
+// Trừ bàn thắng với số tùy chọn
 app.get("/tru", (req, res) => {
-    score--;
+    const value = parseInt(req.query.value) || 1;
+    score -= value;
     io.emit("updateScore", { score, goal });
-    res.json({ success: true, score, goal });
+    res.json({ success: true, score, goal, subtracted: value });
 });
 
 // Reset về 0
